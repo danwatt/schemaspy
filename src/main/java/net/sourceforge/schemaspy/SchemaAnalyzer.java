@@ -253,6 +253,8 @@ public class SchemaAnalyzer {
                     System.out.print(".");
                 }
                 ImageWriter.getInstance().writeImages(outputDir);
+                ResourceWriter.getInstance().writeResource("/bootstrap.css", new File(outputDir, "/bootstrap.css"));
+                ResourceWriter.getInstance().writeResource("/bootstrap-theme.css", new File(outputDir, "/bootstrap-theme.css"));
                 ResourceWriter.getInstance().writeResource("/jquery.js", new File(outputDir, "/jquery.js"));
                 ResourceWriter.getInstance().writeResource("/schemaSpy.js", new File(outputDir, "/schemaSpy.js"));
                 if (!fineEnabled)
@@ -664,7 +666,7 @@ public class SchemaAnalyzer {
 
         // if a classpath has been specified then use it to find the driver,
         // otherwise use whatever was used to load this class.
-        // thanks to Bruno Leonardo Gonçalves for this implementation that he
+        // thanks to Bruno Leonardo Gonï¿½alves for this implementation that he
         // used to resolve issues when running under Maven
         if (classpath.size() > 0) {
             loader = new URLClassLoader(classpath.toArray(new URL[classpath.size()]));

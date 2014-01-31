@@ -43,7 +43,7 @@ public class HtmlFormatter {
     }
 
     protected void writeHeader(Database db, Table table, String text, List<String> javascript, LineWriter out) throws IOException {
-        out.writeln("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>");
+        out.writeln("<!DOCTYPE html>");
         out.writeln("<html>");
         out.writeln("<head>");
         out.writeln("  <!-- SchemaSpy rev " + new Revision() + " -->");
@@ -52,8 +52,12 @@ public class HtmlFormatter {
         out.writeln("</title>");
         out.write("  <link rel=stylesheet href='");
         if (table != null)
-            out.write("../");
-        out.writeln("schemaSpy.css' type='text/css'>");
+        	out.write("../");
+        out.writeln("bootstrap.css' type='text/css'>");
+        out.write("  <link rel=stylesheet href='");
+        if (table != null)
+        	out.write("../");
+        out.writeln("bootstrap-theme.css' type='text/css'>");
         out.writeln("  <meta HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=" + Config.getInstance().getCharset() + "'>");
         out.writeln("  <SCRIPT LANGUAGE='JavaScript' TYPE='text/javascript' SRC='" + (table == null ? "" : "../") + "jquery.js'></SCRIPT>");
         out.writeln("  <SCRIPT LANGUAGE='JavaScript' TYPE='text/javascript' SRC='" + (table == null ? "" : "../") + "schemaSpy.js'></SCRIPT>");
@@ -71,6 +75,9 @@ public class HtmlFormatter {
         out.writeln("</head>");
         out.writeln("<body>");
         writeTableOfContents(out);
+        out.writeln("<div class='container'>");
+        
+        //Old
         out.writeln("<div class='content' style='clear:both;'>");
         out.writeln("<table width='100%' border='0' cellpadding='0'>");
         out.writeln(" <tr>");
@@ -117,6 +124,19 @@ public class HtmlFormatter {
         // don't forget to modify HtmlMultipleSchemasIndexPage with any changes to 'header' or 'headerHolder'
         Config config = Config.getInstance();
         String path = getPathToRoot();
+        
+
+        //BOOTSTRAP
+        
+        html.writeln("<div class='navbar navbar-inverse navbar-fixed-top' role='navigation'>");
+        html.writeln("<div class='container'>");
+        
+        html.writeln("</div>");
+        html.writeln("</div>");
+        
+        
+        // OLD WAY
+        
         // have to use a table to deal with a horizontal scrollbar showing up inappropriately
         html.writeln("<table id='headerHolder' cellspacing='0' cellpadding='0'><tr><td>");
         html.writeln("<div id='header'>");
