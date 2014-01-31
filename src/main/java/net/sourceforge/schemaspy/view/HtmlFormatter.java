@@ -114,7 +114,7 @@ public class HtmlFormatter {
     }
 
     protected void writeGeneratedOn(String connectTime, LineWriter html) throws IOException {
-        html.write("<span class='container'>");
+        html.write("<span>");
         html.write("Generated on ");
         html.write(connectTime);
         html.writeln("</span>");
@@ -128,34 +128,31 @@ public class HtmlFormatter {
 
         //BOOTSTRAP
         
-        html.writeln("<div class='navbar navbar-inverse navbar-fixed-top' role='navigation'>");
-        html.writeln("<div class='container'>");
+        html.writeln("<div class='navbar navbar-inverse navbar-static-top' role='navigation'>");
+	        html.writeln("<div class='container-fluid'>");
+		        html.writeln("<div class='navbar-header'>");
+		        	html.writeln("<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'><span class='sr-only'>Toggle navigation</span><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></button>");
+		        	html.writeln("<a class='navbar-brand' href='#'>SchemaSpy</a>");
+		        html.writeln("</div>");// End header-head
+		        html.writeln("<div class='collapse navbar-collapse'>");
+			        html.writeln(" <ul class='nav navbar-nav'>");
+				        if (config.isOneOfMultipleSchemas())
+				        	html.writeln("  <li><a href='" + path + "../index.html' title='All Schemas Evaluated'>Schemas</a></li>");
+				        html.writeln("  <li" + (isMainIndex() ? " id='current' class='active'" : "") + "><a href='" + path + "index.html' title='All tables and views in the schema'>Tables</a></li>");
+				        html.writeln("  <li" + (isRelationshipsPage() ? " id='current' class='active'" : "") + "><a href='" + path + "relationships.html' title='Diagram of table relationships'>Relationships</a></li>");
+				        if (config.hasOrphans())
+				        	html.writeln("  <li" + (isOrphansPage() ? " id='current' class='active'" : "") + "><a href='" + path + "utilities.html' title='View of tables with neither parents nor children'>Utility&nbsp;Tables</a></li>");
+				        html.writeln("  <li" + (isConstraintsPage() ? " id='current' class='active'" : "") + "><a href='" + path + "constraints.html' title='Useful for diagnosing error messages that just give constraint name or number'>Constraints</a></li>");
+				        html.writeln("  <li" + (isAnomaliesPage() ? " id='current' class='active'" : "") + "><a href='" + path + "anomalies.html' title=\"Things that might not be quite right\">Anomalies</a></li>");
+				        html.writeln("  <li" + (isColumnsPage() ? " id='current' class='active'" : "") + "><a href='" + path + HtmlColumnsPage.getInstance().getColumnInfos().get("column") + "' title=\"All of the columns in the schema\">Columns</a></li>");
+				        if (config.hasRoutines())
+				        	html.writeln("  <li" + (isRoutinesPage() ? " id='current' class='active'" : "") + "><a href='" + path + "routines.html' title='Stored Procedures / Functions'>Routines</a></li>");
+				        html.writeln("  <li><a href='http://sourceforge.net/donate/index.php?group_id=137197' title='Please help keep SchemaSpy alive' target='_blank'>Donate</a></li>");
+			        html.writeln("</ul>");
+		        html.writeln("</div>");
+	        html.writeln("</div>");// End container-fluid
+        html.writeln("</div>");//end navbar
         
-        html.writeln("</div>");
-        html.writeln("</div>");
-        
-        
-        // OLD WAY
-        
-        // have to use a table to deal with a horizontal scrollbar showing up inappropriately
-        html.writeln("<table id='headerHolder' cellspacing='0' cellpadding='0'><tr><td>");
-        html.writeln("<div id='header'>");
-        html.writeln(" <ul>");
-        if (config.isOneOfMultipleSchemas())
-            html.writeln("  <li><a href='" + path + "../index.html' title='All Schemas Evaluated'>Schemas</a></li>");
-        html.writeln("  <li" + (isMainIndex() ? " id='current'" : "") + "><a href='" + path + "index.html' title='All tables and views in the schema'>Tables</a></li>");
-        html.writeln("  <li" + (isRelationshipsPage() ? " id='current'" : "") + "><a href='" + path + "relationships.html' title='Diagram of table relationships'>Relationships</a></li>");
-        if (config.hasOrphans())
-            html.writeln("  <li" + (isOrphansPage() ? " id='current'" : "") + "><a href='" + path + "utilities.html' title='View of tables with neither parents nor children'>Utility&nbsp;Tables</a></li>");
-        html.writeln("  <li" + (isConstraintsPage() ? " id='current'" : "") + "><a href='" + path + "constraints.html' title='Useful for diagnosing error messages that just give constraint name or number'>Constraints</a></li>");
-        html.writeln("  <li" + (isAnomaliesPage() ? " id='current'" : "") + "><a href='" + path + "anomalies.html' title=\"Things that might not be quite right\">Anomalies</a></li>");
-        html.writeln("  <li" + (isColumnsPage() ? " id='current'" : "") + "><a href='" + path + HtmlColumnsPage.getInstance().getColumnInfos().get("column") + "' title=\"All of the columns in the schema\">Columns</a></li>");
-        if (config.hasRoutines())
-            html.writeln("  <li" + (isRoutinesPage() ? " id='current'" : "") + "><a href='" + path + "routines.html' title='Stored Procedures / Functions'>Routines</a></li>");
-        html.writeln("  <li><a href='http://sourceforge.net/donate/index.php?group_id=137197' title='Please help keep SchemaSpy alive' target='_blank'>Donate</a></li>");
-        html.writeln(" </ul>");
-        html.writeln("</div>");
-        html.writeln("</td></tr></table>");
     }
 
     protected String getDescription(Database db, Table table, String text, boolean hoverHelp) {
@@ -213,12 +210,12 @@ public class HtmlFormatter {
     protected void writeLegend(boolean tableDetails, boolean diagramDetails, LineWriter out) throws IOException {
         out.writeln(" <table class='legend' border='0'>");
         out.writeln("  <tr>");
-        out.writeln("   <td class='dataTable' valign='bottom'>Legend:</td>");
+        out.writeln("   <td class='table table-bordered table-hover table-striped table-condensed' valign='bottom'>Legend:</td>");
         if (sourceForgeLogoEnabled())
             out.writeln("   <td class='container' align='right' valign='top'><a href='http://sourceforge.net' target='_blank'><img src='http://sourceforge.net/sflogo.php?group_id=137197&amp;type=1' alt='SourceForge.net' border='0' height='31' width='88'></a></td>");
         out.writeln("  </tr>");
         out.writeln("  <tr><td class='container' colspan='2'>");
-        out.writeln("   <table class='dataTable' border='1'>");
+        out.writeln("   <table class='table table-bordered table-hover table-striped table-condensed'>");
         out.writeln("    <tbody>");
         out.writeln("    <tr><td class='primaryKey'>Primary key columns</td></tr>");
         out.writeln("    <tr><td class='indexedColumn'>Columns with indexes</td></tr>");

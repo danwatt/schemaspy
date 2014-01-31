@@ -121,20 +121,6 @@ public class HtmlMainIndexPage extends HtmlFormatter {
         javascript.add("$(function(){");
         javascript.add("  associate($('#showTables'), $('.tbl'));");
         javascript.add("  associate($('#showViews'),  $('.view'));");
-        javascript.add("  jQuery.fn.alternateRowColors = function() {");
-        javascript.add("    $('tbody tr:visible').each(function(i) {");
-        javascript.add("      if (i % 2 == 0) {");
-        javascript.add("        $(this).removeClass('even').addClass('odd');");
-        javascript.add("      } else {");
-        javascript.add("        $(this).removeClass('odd').addClass('even');");
-        javascript.add("      }");
-        javascript.add("    });");
-        javascript.add("    return this;");
-        javascript.add("  };");
-        javascript.add("  $('#showTables, #showViews').click(function() {");
-        javascript.add("    $('table.dataTable').alternateRowColors();");
-        javascript.add("  });");
-        javascript.add("  $('table.dataTable').alternateRowColors();");
         javascript.add("})");
 
         writeHeader(db, null, null, javascript, html);
@@ -159,9 +145,12 @@ public class HtmlMainIndexPage extends HtmlFormatter {
             xmlName += '.' + db.getSchema();
         else if (db.getCatalog() != null)
             xmlName += '.' + db.getCatalog();
-        html.write("<br><a href='" + xmlName + ".xml' title='XML Representation'>XML Representation</a>");
-        html.write("<br><a href='insertionOrder.txt' title='Useful for loading data into a database'>Insertion Order</a>&nbsp;");
-        html.write("<a href='deletionOrder.txt' title='Useful for purging data from a database'>Deletion Order</a>");
+        html.writeln("<br>");
+        html.writeln("<div class='btn-group'>");
+        html.write("<a href='" + xmlName + ".xml' class='btn btn-default' title='XML Representation'>XML Representation</a>");
+        html.write("<a href='insertionOrder.txt' class='btn btn-default' title='Useful for loading data into a database'>Insertion Order</a>");
+        html.write("<a href='deletionOrder.txt' class='btn btn-default' title='Useful for purging data from a database'>Deletion Order</a>");
+        html.writeln("</div>");
         html.writeln("</td>");
         html.writeln(" </tr>");
         html.writeln("</table>");
@@ -181,7 +170,7 @@ public class HtmlMainIndexPage extends HtmlFormatter {
         html.writeln(" <label for='showComments'><input type=checkbox " + (hasComments  ? "checked " : "") + "id='showComments'>Comments</label>");
         html.writeln("</b>");
 
-        html.writeln("<table class='dataTable' border='1' rules='groups'>");
+        html.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
         int numGroups = 4 + (showIds ? 1 : 0) + (displayNumRows ? 1 : 0);
         for (int i = 0; i < numGroups; ++i)
             html.writeln("<colgroup>");
@@ -211,7 +200,7 @@ public class HtmlMainIndexPage extends HtmlFormatter {
 
     private void writeRemotesHeader(Database db, boolean showIds, boolean hasComments, LineWriter html) throws IOException {
         html.writeln("<p><br><b>Related tables in other schemas</b>");
-        html.writeln("<table class='dataTable' border='1' rules='groups'>");
+        html.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
         int numGroups = 3 + (showIds ? 1 : 0);
         for (int i = 0; i < numGroups; ++i)
             html.writeln("<colgroup>");

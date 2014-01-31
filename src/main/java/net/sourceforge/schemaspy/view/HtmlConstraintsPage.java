@@ -96,7 +96,7 @@ public class HtmlConstraintsPage extends HtmlFormatter {
             html.writeln("  <a href='http://sourceforge.net' target='_blank'><img src='http://sourceforge.net/sflogo.php?group_id=137197&amp;type=1' alt='SourceForge.net' border='0' height='31' width='88'></a>");
         html.writeln("</td></tr>");
         html.writeln("</table><br>");
-        html.writeln("<table class='dataTable' border='1' rules='groups'>");
+        html.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
         html.writeln("<colgroup>");
         html.writeln("<colgroup>");
         html.writeln("<colgroup>");
@@ -184,7 +184,7 @@ public class HtmlConstraintsPage extends HtmlFormatter {
     public void writeCheckConstraints(Collection<Table> tables, LineWriter html) throws IOException {
         html.writeln("<a name='checkConstraints'></a><p>");
         html.writeln("<b>Check Constraints:</b>");
-        html.writeln("<TABLE class='dataTable' border='1' rules='groups'>");
+        html.writeln("<TABLE class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
         html.writeln("<colgroup>");
         html.writeln("<colgroup>");
         html.writeln("<colgroup>");

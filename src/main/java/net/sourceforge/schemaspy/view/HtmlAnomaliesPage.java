@@ -88,7 +88,7 @@ public class HtmlAnomaliesPage extends HtmlFormatter {
         }
 
         if (numDetected > 0) {
-            out.writeln("<table class='dataTable' border='1' rules='groups'>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
             out.writeln("<colgroup>");
             out.writeln("<colgroup>");
             out.writeln("<thead align='left'>");
@@ -146,7 +146,7 @@ public class HtmlAnomaliesPage extends HtmlFormatter {
         out.writeln("<li>");
         out.writeln("<b>Tables without indexes:</b>");
         if (!unindexedTables.isEmpty()) {
-            out.writeln("<table class='dataTable' border='1' rules='groups'>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
             out.writeln("<colgroup>");
             if (displayNumRows)
                 out.writeln("<colgroup>");
@@ -191,7 +191,7 @@ public class HtmlAnomaliesPage extends HtmlFormatter {
         out.writeln("<li>");
         out.writeln("<b>Tables with incrementing column names, potentially indicating denormalization:</b>");
         if (!tables.isEmpty()) {
-            out.writeln("<table class='dataTable' border='1' rules='groups'>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
             out.writeln("<thead align='left'>");
             out.writeln("<tr>");
             out.writeln("  <th>Table</th>");
@@ -222,7 +222,7 @@ public class HtmlAnomaliesPage extends HtmlFormatter {
         out.writeln("<li>");
         out.write("<b>Tables that contain a single column:</b>");
         if (!tables.isEmpty()) {
-            out.writeln("<table class='dataTable' border='1' rules='groups'>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
             out.writeln("<colgroup>");
             out.writeln("<colgroup>");
             out.writeln("<thead align='left'>");
@@ -262,7 +262,7 @@ public class HtmlAnomaliesPage extends HtmlFormatter {
 
     private void writeColumnBasedAnomaly(List<TableColumn> columns, LineWriter out) throws IOException {
         if (!columns.isEmpty()) {
-            out.writeln("<table class='dataTable' border='1' rules='groups'>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'>");
             out.writeln("<thead align='left'>");
             out.writeln("<tr>");
             out.writeln("  <th>Column</th>");

@@ -139,11 +139,7 @@ public class HtmlTablePage extends HtmlFormatter {
     }
 
     public void writeColumn(TableColumn column, String tableName, Set<TableColumn> primaries, Set<TableColumn> indexedColumns, boolean slim, boolean showIds, LineWriter out) throws IOException {
-        boolean even = columnCounter++ % 2 == 0;
-        if (even)
-            out.writeln("<tr class='even'>");
-        else
-            out.writeln("<tr class='odd'>");
+        out.writeln("<tr>");
 
         if (showIds) {
             out.write(" <td class='detail' align='right'>");
@@ -205,10 +201,10 @@ public class HtmlTablePage extends HtmlFormatter {
         if (!slim) {
             out.write(" <td class='detail'>");
             String path = tableName == null ? "" : "tables/";
-            writeRelatives(column, false, path, even, out);
+            writeRelatives(column, false, path, out);
             out.writeln("</td>");
             out.write(" <td class='detail'>");
-            writeRelatives(column, true, path, even, out);
+            writeRelatives(column, true, path, out);
             out.writeln(" </td>");
         }
         out.write(" <td class='comment detail'>");
@@ -232,10 +228,9 @@ public class HtmlTablePage extends HtmlFormatter {
      * @param out LineWriter
      * @throws IOException
      */
-    private void writeRelatives(TableColumn baseRelative, boolean dumpParents, String path, boolean even, LineWriter out) throws IOException {
+    private void writeRelatives(TableColumn baseRelative, boolean dumpParents, String path, LineWriter out) throws IOException {
         Set<TableColumn> columns = dumpParents ? baseRelative.getParents() : baseRelative.getChildren();
         final int numColumns = columns.size();
-        final String evenOdd = (even ? "even" : "odd");
 
         if (numColumns > 0) {
             out.newLine();
@@ -247,9 +242,9 @@ public class HtmlTablePage extends HtmlFormatter {
             String columnTableName = columnTable.getName();
             ForeignKeyConstraint constraint = dumpParents ? column.getChildConstraint(baseRelative) : column.getParentConstraint(baseRelative);
             if (constraint.isImplied())
-                out.writeln("   <tr class='impliedRelationship relative " + evenOdd + "' valign='top'>");
+                out.writeln("   <tr class='impliedRelationship relative' valign='top'>");
             else
-                out.writeln("   <tr class='relative " + evenOdd + "' valign='top'>");
+                out.writeln("   <tr class='relative' valign='top'>");
             out.write("    <td class='relatedTable detail' title=\"");
             out.write(constraint.toString());
             out.write("\">");
@@ -313,7 +308,7 @@ public class HtmlTablePage extends HtmlFormatter {
         if (constraints != null && !constraints.isEmpty()) {
             out.writeln("<div class='indent'>");
             out.writeln("<b>Requirements (check constraints):</b>");
-            out.writeln("<table class='dataTable' border='1' rules='groups'><colgroup><colgroup>");
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'><colgroup><colgroup>");
             out.writeln("<thead>");
             out.writeln(" <tr>");
             out.writeln("  <th>Constraint</th>");
@@ -350,7 +345,7 @@ public class HtmlTablePage extends HtmlFormatter {
 
             out.writeln("<div class='indent'>");
             out.writeln("<b>Indexes:</b>");
-            out.writeln("<table class='dataTable' border='1' rules='groups'><colgroup><colgroup><colgroup><colgroup>" + (showId ? "<colgroup>" : "") + (containsAnomalies ? "<colgroup>" : ""));
+            out.writeln("<table class='table table-bordered table-hover table-striped table-condensed' rules='groups'><colgroup><colgroup><colgroup><colgroup>" + (showId ? "<colgroup>" : "") + (containsAnomalies ? "<colgroup>" : ""));
             out.writeln("<thead>");
             out.writeln(" <tr>");
             if (showId)

@@ -196,7 +196,7 @@ public class HtmlColumnsPage extends HtmlFormatter {
         boolean onColumnsPage = selectedColumn != null;
         List<String> details = null;
         out.writeln("<a name='columns'></a>");
-        out.writeln("<table id='columns' class='dataTable' border='1' rules='groups'>");
+        out.writeln("<table id='columns' class='table table-bordered table-striped table-bordered table-hover' rules='groups'>");
 
         if (onColumnsPage) {
             details = new ArrayList<String>(Config.getInstance().getColumnDetails());
